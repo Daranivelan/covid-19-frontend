@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-BACKEND_URL =
+const BACKEND_URL =
   import.meta.env.MODE === "LOCAL"
     ? "http://localhost:8080"
     : "https://covid-19-backend-youy.onrender.com";
