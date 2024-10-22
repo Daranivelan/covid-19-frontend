@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 
+BACKEND_URL =
+  import.meta.env.MODE === "LOCAL"
+    ? "http://localhost:8080"
+    : "https://covid-19-backend-youy.onrender.com";
+
 export default function Cases() {
   const [casesData, setCasesData] = useState([]);
   const [hospitalData, setHospitalData] = useState([]);
@@ -20,20 +25,18 @@ export default function Cases() {
 
   useEffect(() => {
     async function fetchData() {
-      const casesResponse = await fetch(
-        `http://localhost:8080/covid/cases/${state}`
-      );
+      const casesResponse = await fetch(`${BACKEND_URL}/covid/cases/${state}`);
       const data1 = await casesResponse.json();
       setCasesData(data1);
 
       const hospitalResponse = await fetch(
-        `http://localhost:8080/covid/hospitals/resources/${state}`
+        `${BACKEND_URL}/covid/hospitals/resources/${state}`
       );
       const data2 = await hospitalResponse.json();
       setHospitalData(data2);
 
       const vaccinationResponse = await fetch(
-        `http://localhost:8080/covid/vaccination-status/${state}`
+        `${BACKEND_URL}/covid/vaccination-status/${state}`
       );
       const data3 = await vaccinationResponse.json();
       setVaccinationData(data3);
@@ -68,7 +71,7 @@ export default function Cases() {
   };
 
   const handleCaseUpdateClick = async () => {
-    const response = await fetch(`http://localhost:8080/covid/cases/update`, {
+    const response = await fetch(`${BACKEND_URL}/covid/cases/update`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -83,7 +86,7 @@ export default function Cases() {
 
   const handleUpdateClick = async () => {
     const response = await fetch(
-      `http://localhost:8080/covid/hospitals/resources/update`,
+      `${BACKEND_URL}/covid/hospitals/resources/update`,
       {
         method: "POST",
         headers: {
